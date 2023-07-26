@@ -1,7 +1,7 @@
 import React from 'react'
 
 const style = {
-  sidebar: `flex-1 border-r-4 border-[#2869bb]`
+  sidebar: `order-1 border-r-[40vh] border-[#2869bb] bg-[#2869bb]`
 }
 
 const Sidebar = () => {
