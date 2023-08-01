@@ -1,7 +1,7 @@
 import React from 'react'
 
 const style = {
-  chat: `order-2`
+  chat: `flex-2`
 }
 
 const Chat = () => {

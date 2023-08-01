@@ -1,12 +1,19 @@
 import React from 'react'
+import Navbar from './Navbar'
+import Search from './Search'
+import DiffChats from './DiffChats'
 
 const style = {
-  sidebar: `order-1 border-r-[40vh] border-[#2869bb] bg-[#2869bb]`
+  sidebar: `flex-1 border-r-[1px] border-white bg-[#2869bb]`
 }
 
 const Sidebar = () => {
   return (
-    <div className={style.sidebar}>Sidebar</div>
+    <div className={style.sidebar}>
+      <Navbar />
+      <Search />
+      <DiffChats />
+    </div>
   )
 }
 
