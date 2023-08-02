@@ -18,7 +18,7 @@ const Search = () => {
       </div>
       <div className={style.userChat}>
         <img className={style.profilepicture} src={Setsuna} alt="Setsuna" />
-        <div className={style.userChatInfo}>Markus</div>
+        <div className={style.userChatInfo}>Markus Salvador</div>
       </div>
     </div>
   )
