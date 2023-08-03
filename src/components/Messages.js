@@ -2,7 +2,7 @@ import React from 'react'
 import Message from './Message'
 
 const style = { 
-    messages:`bg-[#afccee] padding-2.5 h-[calc(100%-6rem)]`,
+    messages:`bg-[#afccee] padding-2.5 h-[calc(100%-6rem)] overflow-scroll`,
 }
 
 const Messages = () => {
