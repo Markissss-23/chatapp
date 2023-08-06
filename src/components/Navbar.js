@@ -1,5 +1,7 @@
 import React from 'react'
 import Setsuna from '../img/setsuna.png'
+import { signOut } from 'firebase/auth'
+import { auth } from '../firebase'
 
 const style = { 
   navbar:`flex items-center bg-[#123055] h-16 p-4 justify-between text-gray-200`,
@@ -16,7 +18,7 @@ const Navbar = () => {
       <div className={style.user}></div>
         <img className={style.profilepicture} src={Setsuna} alt="" />
         <span>Markus Salvador</span>
-        <button className={style.button}>Logout</button>
+        <button className={style.button} onClick={() => signOut(auth)}>Logout</button>
     </div>
   )
 }

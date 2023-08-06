@@ -1,8 +1,10 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import React, { useState } from "react";
-import { auth, storage } from "../firebase";
+import { auth, storage, db } from "../firebase";
 import Add from '../img/AddProfileImage.png';
+import { doc, setDoc } from "firebase/firestore"; 
+import { useNavigate } from "react-router-dom";
 
 const style = {
   formContainer: `bg-[#242427] h-screen flex items-center justify-center`,
@@ -19,6 +21,7 @@ const style = {
 
 const Register = () => {
   const [err, setErr] = useState(false);
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -30,7 +33,7 @@ const Register = () => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password)
 
-      const storageRef = ref(storage, displayName);
+      const storageRef = ref(storage, `profileImages/${res.user.uid}`);
 
       const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -45,7 +48,16 @@ const Register = () => {
             await updateProfile(res.user, {
               displayName,
               photoURL: downloadURL
-            })
+            });
+            await setDoc(doc(db, "users", res.user.uid), {
+              uid: res.user.uid,
+              displayName,
+              email, 
+              photoURL: downloadURL
+            });
+
+            await setDoc(doc(db, "userChats", res.user.uid), {})
+            navigate("/")
           });
         }
       );
