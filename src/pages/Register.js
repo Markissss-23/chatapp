@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { auth, storage, db } from "../firebase";
 import Add from '../img/AddProfileImage.png';
 import { doc, setDoc } from "firebase/firestore"; 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const style = {
   formContainer: `bg-[#242427] h-screen flex items-center justify-center`,
@@ -35,16 +35,9 @@ const Register = () => {
 
       const storageRef = ref(storage, `profileImages/${res.user.uid}`);
 
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      // Register three observers:
-
-      uploadTask.on(
-        (error) => {
-          setErr(true);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
+      await uploadBytesResumable(storageRef, file).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          try {
             await updateProfile(res.user, {
               displayName,
               photoURL: downloadURL
@@ -58,9 +51,12 @@ const Register = () => {
 
             await setDoc(doc(db, "userChats", res.user.uid), {})
             navigate("/")
-          });
-        }
-      );
+          } catch (err) {
+            console.log(err);
+            setErr(true);
+          }
+        });
+      });
     } catch (err) {
       setErr(true);
     }
@@ -83,7 +79,7 @@ return (
         <button className={style.button}>Sign Up</button>
         {err && <span>Something went wrong</span>}
       </form>
-      <p>Do you have an account? Login here</p>
+      <p>Do you have an account? <Link to="/login">Login here</Link></p>
     </div>
   </div>
 )
