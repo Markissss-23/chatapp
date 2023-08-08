@@ -40,13 +40,17 @@ const Search = () => {
     e.code === "Enter" && handleSearch();
   }
 
+  const handleSelect = () => { 
+    
+  }
+
   return (
     <div className={style.search}>
       <div className={style.searchForm}>
         <input className={style.textinput} type="text" placeholder='search for a user' onKeyDown={handleKey} onChange={e=> setUsername(e.target.value)}/>
       </div>
       { err && <span>User not found</span>}
-      { user && <div className={style.userChat}>
+      { user && <div className={style.userChat} onClick={handleSelect}>
         <img className={style.profilepicture} src={user.photoURL} alt="" />
         <div className={style.userChatInfo}>{user.displayName}</div>
       </div>}
