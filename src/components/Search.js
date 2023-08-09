@@ -8,7 +8,7 @@ const style = {
   search:`border-b-2`,
   searchForm: `p-6`,
   textinput:`bg-transparent border-none text-white outline-none placeholder:text-gray-300`,
-  userChat:`p-6 flex items-center gap-6 text-white cursor-pointer hover:bg-[#123055]`,
+  userChat:`p-6 flex border-t-2 items-center gap-6 text-white cursor-pointer hover:bg-[#123055]`,
   profilepicture:`bg-white h-12 w-12 rounded-full object-cover`,
   userChatInfo:``,
 }
