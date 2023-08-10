@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Setsuna from '../img/setsuna.png'
+import { AuthContext } from '../context/AuthContext'
+import { ChatContext } from '../context/ChatContext'
 
 const style = {
   message: `flex gap-5 mb-5`,
@@ -14,7 +16,12 @@ const style = {
   messageContentOwner: `flex flex-col max-w-[80%] gap-2.5 items-end`,
 }
 
-const Message = () => {
+const Message = ({message}) => {
+
+  const { currentUser } = useContext(AuthContext)
+  const { data } = useContext(ChatContext)
+
+  console.log(message)
   return (
     <div className={style.messageOwner}>
       <div className={style.messageInfo}>

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Add from '../img/add-contact.png'
 import More from '../img/three-dots.png'
 import Video from '../img/video-camera.png'
 import Input from './Input'
 import Messages from './Messages'
+import { ChatContext } from '../context/ChatContext'
 
 const style = {
   chat: `flex-2`,
@@ -14,10 +15,12 @@ const style = {
 }
 
 const Chat = () => {
+  const { data } = useContext(ChatContext)
+
   return (
     <div className={style.chat}>
       <div className={style.chatInfo}>
-        <span className={style.userName}>Toby</span>
+        <span className={style.userName}>{data.user.displayName}</span>
         <div className={style.chatIcons}>
           <img className={style.image} src={Video} alt='' />
           <img className={style.image} src={Add} alt='' />

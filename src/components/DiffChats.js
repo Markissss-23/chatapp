@@ -22,7 +22,7 @@ const DiffChats = () => {
 
   useEffect(() => {
     const getChats = () => {
-      const unsub = onSnapshot(doc(db, "userChats", currentUser.uid,), (doc) => {
+      const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
         setChats(doc.data())
       });
 
@@ -31,12 +31,16 @@ const DiffChats = () => {
       }
     }
 
-    currentUser.uid && getChats()
+    if (currentUser.uid) {
+      getChats();
+    }
+
+    setChats([]);
   }, [currentUser.uid])
 
 
-  const handleSelect = () => {
-    dispatch()
+  const handleSelect = (u) => {
+    dispatch({type: "CHANGE_USER", payload: u})
   }
 
   return (
@@ -44,7 +48,7 @@ const DiffChats = () => {
       {Object.entries(chats)?.map((chat) => (
 
       
-      <div className={style.userChat} key={chat[0]} onClick={handleSelect}>
+      <div className={style.userChat} key={chat[0]} onClick={() => handleSelect(chat[1].userInfo)}>
         <img className={style.profilepicture} src={chat[1].userInfo.photoURL} alt="" />
         <div className={style.userChatInfo}>
           <span className={style.userText}>{chat[1].userInfo.displayName}</span>

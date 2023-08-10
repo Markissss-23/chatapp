@@ -1,6 +1,4 @@
-import { onAuthStateChanged } from "firebase/auth";
-import { createContext, useContext,useEffect, useReducer, useState } from "react";
-import { auth } from "../firebase"
+import { createContext, useContext, useReducer } from "react";
 import { AuthContext } from "./AuthContext";
 
 export const ChatContext = createContext()
@@ -20,7 +18,7 @@ export const ChatContextProvider = ({children}) => {
                 return {
                     user:action.payload,
                     chatID: currentUser.uid > action.payload.uid 
-                    ? currentUser.payload.uid + action.payload.uid 
+                    ? currentUser.uid + action.payload.uid 
                     : action.payload.uid + currentUser.uid
                 }
 

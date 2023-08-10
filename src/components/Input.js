@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Attach from '../img/attach-file.png'
 import Img from '../img/gallery.png'
+import { AuthContext } from '../context/AuthContext'
+import { ChatContext } from '../context/ChatContext'
 
 
 
@@ -13,6 +15,15 @@ const style = {
   button: `border-none py-2 px-4 text-white bg-[#4d9dcb] mr-1.5`
 }
 const Input = () => {
+
+  const [ text, setText ] = useState("")
+  const [ img, setImage ] = useState("")
+
+  const { currentUser } = useContext(AuthContext)
+  const { data } = useContext(ChatContext)
+
+  const handleSend = ()
+
   return (
     <div className={style.input}>
       <input className={style.inputs} type='text' placeholder='Send Message...' />
@@ -22,7 +33,7 @@ const Input = () => {
         <label htmlFor='file'>
           <img className={style.img} src={Img} alt='' />
         </label>
-        <button className={style.button}>Send</button>
+        <button className={style.button} onClick={handleSend}>Send</button>
       </div>
 
     </div>
