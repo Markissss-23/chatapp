@@ -3,6 +3,10 @@ import Attach from '../img/attach-file.png'
 import Img from '../img/gallery.png'
 import { AuthContext } from '../context/AuthContext'
 import { ChatContext } from '../context/ChatContext'
+import { Timestamp, arrayUnion, doc,updateDoc } from 'firebase/firestore'
+import { v4 as uuid } from "uuid"
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import { db, storage } from '../firebase'
 
 
 
@@ -17,19 +21,51 @@ const style = {
 const Input = () => {
 
   const [ text, setText ] = useState("")
-  const [ img, setImage ] = useState("")
+  const [ img, setImg ] = useState(null)
 
   const { currentUser } = useContext(AuthContext)
   const { data } = useContext(ChatContext)
 
-  const handleSend = ()
+  const handleSend = async () => {
+    if(img) {
+
+      const storageRef = ref(storage, uuid());
+
+      const uploadTask = uploadBytesResumable(storageRef, img)
+
+      await uploadBytesResumable(storageRef, img).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          await updateDoc(doc(db, "chats", data.chatID), {
+            messages: arrayUnion({
+              id: uuid(),
+              text, 
+              senderId:currentUser.uid,
+              date: Timestamp.now(),
+              img: downloadURL,
+            })
+          })
+        });
+      });
+
+
+    } else {
+      await updateDoc(doc(db, "chats", data.chatID), {
+        messages: arrayUnion({
+          id: uuid(),
+          text, 
+          senderId:currentUser.uid,
+          date: Timestamp.now()
+        })
+      })
+    }
+  }
 
   return (
     <div className={style.input}>
-      <input className={style.inputs} type='text' placeholder='Send Message...' />
+      <input className={style.inputs} type='text' placeholder='Send Message...' onChange={ e=> setText(e.target.value)} />
       <div className={style.send}>
         <img className={style.img} src={Attach} alt='' />
-        <input className={style.inputs} type='file' style={{ display: "none" }} id="file" />
+        <input className={style.inputs} type='file' style={{ display: "none" }} id="file" onChange={e => setImg(e.target.files[0])}/>
         <label htmlFor='file'>
           <img className={style.img} src={Img} alt='' />
         </label>

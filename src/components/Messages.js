@@ -14,6 +14,7 @@ const Messages = () => {
 
     useEffect(() => {
         const unSub = onSnapshot(doc(db,"chats", data.chatId), (doc) => {
+
             doc.exists() && setMessages(doc.data().messages)
         })
 
@@ -22,12 +23,13 @@ const Messages = () => {
         }
     }, [data.chatId])
 
+
     return (
         <div className={style.messages}>
-            {messages.map(m => (
+            {messages.map((m) => (
 
                 <Message message={m} key={m.id}/>
-            ))}
+            )) }
         </div>
     )
 }
