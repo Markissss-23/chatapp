@@ -31,11 +31,7 @@ const DiffChats = () => {
       }
     }
 
-    if (currentUser.uid) {
-      getChats();
-    }
-
-    setChats([]);
+    currentUser.uid && getChats();
   }, [currentUser.uid])
 
 
@@ -45,14 +41,13 @@ const DiffChats = () => {
 
   return (
     <div className={style.chats}>
-      {Object.entries(chats)?.map((chat) => (
+      {Object.entries(chats).sort((a,b)=>b[1].date - a[1].date).map((chat) => (
 
-      
       <div className={style.userChat} key={chat[0]} onClick={() => handleSelect(chat[1].userInfo)}>
         <img className={style.profilepicture} src={chat[1].userInfo.photoURL} alt="" />
         <div className={style.userChatInfo}>
           <span className={style.userText}>{chat[1].userInfo.displayName}</span>
-          <p className={style.underText}>{chat[1].userInfo.lastMessage?.text}</p>
+          <p className={style.underText}>{chat[1].lastMessage?.text}</p>
         </div>
       </div>
       ))}
