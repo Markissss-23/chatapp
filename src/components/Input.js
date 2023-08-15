@@ -27,8 +27,6 @@ const Input = () => {
   const { data } = useContext(ChatContext)
 
   const handleSend = async () => {
-    console.log("Current chatId:", data.chatId)
-    console.log(data)
     if(img) {
 
       const storageRef = ref(storage, uuid());
@@ -86,8 +84,7 @@ const Input = () => {
   };
 
 
-  console.log("Current chatId:", data.chatId)
-  console.log(data)
+
 
   return (
     <div className={style.input}>
