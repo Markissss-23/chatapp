@@ -44,34 +44,34 @@ const Search = () => {
 
   const handleSelect = async () => { 
     // checks if chat collection exists in firestore, if it doesnt it creates one
-    const combinedID = 
+    const combinedId = 
       currentUser.uid > user.uid 
         ? currentUser.uid + user.uid 
         : user.uid + currentUser.uid;
     try {
-      const res = await getDoc(doc (db, "chats" , combinedID));
+      const res = await getDoc(doc (db, "chats" , combinedId));
       
       if(!res.exists()){
         // creates a chat in chats collection
-        await setDoc(doc (db, "chats", combinedID), {messages: [] })
+        await setDoc(doc (db, "chats", combinedId), {messages: [] })
 
         // creates user chats
         await updateDoc(doc (db, "userChats", currentUser.uid),{
-          [combinedID+".userInfo"]: {
+          [combinedId+".userInfo"]: {
             uid: user.uid,
             displayName: user.displayName,
             photoURL: user.photoURL,
           }, 
-          [combinedID+".date"]: serverTimestamp()
+          [combinedId+".date"]: serverTimestamp()
         });
 
         await updateDoc(doc (db, "userChats", user.uid),{
-          [combinedID+".userInfo"]: {
+          [combinedId+".userInfo"]: {
             uid: currentUser.uid,
             displayName: currentUser.displayName,
             photoURL: currentUser.photoURL
           }, 
-          [combinedID+".date"]: serverTimestamp()
+          [combinedId+".date"]: serverTimestamp()
         })
       }
 

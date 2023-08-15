@@ -41,7 +41,7 @@ const DiffChats = () => {
 
   return (
     <div className={style.chats}>
-      {Object.entries(chats).sort((a,b)=>b[1].date - a[1].date).map((chat) => (
+      {Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) => (
 
       <div className={style.userChat} key={chat[0]} onClick={() => handleSelect(chat[1].userInfo)}>
         <img className={style.profilepicture} src={chat[1].userInfo.photoURL} alt="" />

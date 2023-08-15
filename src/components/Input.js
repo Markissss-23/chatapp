@@ -58,7 +58,7 @@ const Input = () => {
     } else {
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
-          id: uuid(),
+          Id: uuid(),
           text,
           senderId: currentUser.uid,
           date: Timestamp.now(),
@@ -91,7 +91,13 @@ const Input = () => {
 
   return (
     <div className={style.input}>
-      <input className={style.inputs} type='text' placeholder='Send Message...' onChange={ e=> setText(e.target.value)} />
+      <input 
+        className={style.inputs} 
+        type='text' 
+        placeholder='Send Message...' 
+        onChange={ e=> setText(e.target.value)}
+        value={text}
+        />
       <div className={style.send}>
         <img className={style.img} src={Attach} alt='' />
         <input className={style.inputs} type='file' style={{ display: "none" }} id="file" onChange={e => setImg(e.target.files[0])}/>
