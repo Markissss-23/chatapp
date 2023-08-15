@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef } from 'react'
-import Setsuna from '../img/setsuna.png'
 import { AuthContext } from '../context/AuthContext'
 import { ChatContext } from '../context/ChatContext'
 
