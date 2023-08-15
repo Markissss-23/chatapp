@@ -25,7 +25,7 @@ const Message = ({message}) => {
   
   useEffect(() => {
     ref.current?.scrollIntoView({behaviour:"smooth"})
-  }, [mess])
+  }, [message])
 
   return (
     <div 
