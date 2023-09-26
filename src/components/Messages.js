@@ -5,7 +5,7 @@ import { doc, onSnapshot } from 'firebase/firestore'
 import { db } from '../firebase'
 
 const style = { 
-    messages:`bg-[#afccee] padding-2.5 h-[calc(100%-6rem)] overflow-scroll`,
+    messages:`bg-[#afccee] padding-2.5 h-[calc(100%-6rem)] overflow-y-auto`,
 }
 
 const Messages = () => {

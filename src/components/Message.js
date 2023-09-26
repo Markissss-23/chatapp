@@ -39,8 +39,9 @@ const Message = ({message}) => {
         />
         <span>Just Now</span>
       </div>
-      <div className={style.messageContent}>
-        <p className={style.textOwner}>{message.text}</p>
+      <div className={message.senderId === currentUser.uid ? style.messageContentOwner : style.messageContent}>
+      
+        <p className={message.senderId === currentUser.uid ? style.textOwner : style.text}>{message.text}</p>
         {message.img && <img className={style.imgContent} src={message.img} alt="" />}
       </div>
     </div>

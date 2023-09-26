@@ -13,7 +13,7 @@ import { db, storage } from '../firebase'
 const style = {
   input: `flex items-center justify-between h-12 bg-white padding-2.5`,
   send: `flex items-center gap-2.5`,
-  inputs: `w-fit border-none outline-none text-blue-900 placeholder-gray-500`,
+  inputs: `w-4/5 border-none outline-none text-blue-900 placeholder-gray-500`,
   fileImport: ``,
   img: `h-6 w-6 cursor-pointer`, 
   button: `border-none py-2 px-4 text-white bg-[#4d9dcb] mr-1.5`
